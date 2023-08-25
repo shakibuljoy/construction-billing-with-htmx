@@ -10,9 +10,21 @@
         integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI"
         crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4c62fab14b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <nav class="bg-blue-500 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#" class="text-white text-xl font-semibold">Rancon FC Construction - Billing</a>
+      <ul class="flex space-x-4">
+        <li><a href="{% url 'bill-list' %}" class="text-white">Bill</a></li>
+        <li><a href="{% url 'wo-list' %}" class="text-white">Work Order</a></li>
+        <li><a href="#" class="text-white">Services</a></li>
+        <li><a href="#" class="text-white">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
     <div class="py-5 px-4 sm:px-6 max-w-5xl mx-auto">
         {% block content %}
         {% endblock content %}

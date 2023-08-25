@@ -46,6 +46,11 @@ class Bill(models.Model):
             suffix = {1: "st", 2: "nd", 3: "rd"}.get(self.ra % 10, "th")
         return str(self.ra) + suffix
 
+    def total_amount(self):
+        items = Item.objects.filter(bill=self)
+        amount = sum(item.amount() for item in items)
+        return round(amount, 2)
+
     def __str__(self):
         return f"{self.ordinal_number()} R/A--{self.project}--{self.vendor}"
 
@@ -71,5 +76,5 @@ class Item(models.Model):
     def amount(self):
         if self.item_id is not None:
             work_order = self.item  # Access the related WorkOrder instance
-            return work_order.rate * self.quantity * self.quantity_parc * self.rate_parc
+            return work_order.rate * self.quantity * 0.01 * self.quantity_parc * 0.01 * self.rate_parc
         return 0  # Handle the case where the item is not linked to a WorkOrder or the rate is not set

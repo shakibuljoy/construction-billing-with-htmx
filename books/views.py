@@ -4,6 +4,22 @@ from .forms import BillForm, WorkOrderForm, WorkOrderItemForm, ItemForm
 from .models import Bill, WorkOrder, WorkOrderItem, Item
 
 
+def bill_list(request):
+    bill = Bill.objects.all()
+    context = {
+        'bills': bill
+    }
+    return render(request, 'partials/bill_list.html', context)
+
+
+def wo_list(request):
+    wo = WorkOrder.objects.all()
+    context = {
+        'work_order': wo
+    }
+    return render(request, 'partials/wo_list.html', context)
+
+
 def create_bill(request):
     form = BillForm(request.POST or None)
     wo = WorkOrder.objects.all()
@@ -24,7 +40,9 @@ def create_bill_item(request, pk):
     bill = Bill.objects.get(id=pk)
     form = ItemForm(request.POST or None)
     item = Item.objects.filter(bill=bill)
-
+    total_amount = 0
+    for i in item:
+        total_amount += i.amount()
     if request.method == "POST":
         if form.is_valid():
             item = form.save(commit=False)
@@ -38,7 +56,8 @@ def create_bill_item(request, pk):
     context = {
         'form': form,
         'bill': bill,
-        'bill_items': item
+        'bill_items': item,
+        'total_amount': round(total_amount, 2)
     }
     return render(request, "bill_form_htmx.html", context)
 

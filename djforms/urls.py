@@ -14,12 +14,15 @@ from books.views import (
     delete_bill_item,
     update_bill_item,
     bill_item_form,
+    bill_list,
+    wo_list
 )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Billing Part
+    path('bill/', bill_list, name='bill-list'),
     path('create-bill/', create_bill, name='create-bill'),
     path('bill_item_form/<pk>/', bill_item_form, name='bill-item-form'),
     path('create-bill-item/<pk>/', create_bill_item, name='create-bill-item'),
@@ -27,6 +30,7 @@ urlpatterns = [
     path('delete-bill-item/<pk>/', delete_bill_item, name='delete-bill-item'),
     path('update-bill-item/<pk>/', update_bill_item, name='update-bill-item'),
     # Work Order Part
+    path('work-order/', wo_list, name='wo-list'),
     path('create-work-order/', create_work_order, name='create-work-order'),
     path('wo-item-form/', wo_item_form, name='wo-item-form'),
     path('create-wo-item/<pk>/', create_work_order_item, name='create-wo-item'),

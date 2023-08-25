@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Type
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Project
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Vendor
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Category
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    View
+                </th>
+            </tr>
+        </thead>
+        <a href="{% url 'create-bill' %}" class="float-right mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold cursor:pointer py-2 px-4 border border-blue-700 rounded">
+          Create
+        </a>
+        <tbody>
+        {% for wo in work_order %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{wo.rate_type}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{wo.project}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{wo.vendor}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{wo.category}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <a href="{% url 'create-wo-item' wo.id %}">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
