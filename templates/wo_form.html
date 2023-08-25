@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+<!--  Title-->
+  <div class="flex justify-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Create a New Rate</h2>
+  </div>
+
+<!--  Main Form-->
+    <form method='post'>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      {% csrf_token %}
+      <div class="mb-4">
+        <div class="w-full max-w-xs">
+          <select id="rate_type" name="rate_type" class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="Work Order">Work Order</option>
+            <option value="CS">CS</option>
+            <option value="Rate">Rate</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="project">
+          Project
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="project"
+          name="project"
+          type="text"
+          placeholder="Project"
+        >
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
+          Category
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="category"
+          name="category"
+          type="text"
+          placeholder="Category"
+        >
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="vendor">
+          Vendor
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="vendor"
+          name="vendor"
+          type="text"
+          placeholder="Vendor"
+        >
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Create Work Order
+        </button>
+      </div>
+    </div>
+
+    </form>
+  </div>
+  {%endblock%}

@@ -1,0 +1,53 @@
+{% load tailwind_filters %}
+
+<div hx-target="this" hx-swap="outerHTML" class="mt-3 py-3 px-3 bg-white shadow border border-gray-100">
+    <form method="POST">
+        {% csrf_token %}
+      <div class="mb-4">
+        <label for="item_location" class="block text-gray-700 font-bold mb-2">Location:</label>
+        <input type="text" value="{{bill_item.location}}" name="location" id="item_location" class="w-full border p-2 rounded" placeholder="Item Location">
+      </div>
+      <div class="mb-4">
+        <label for="item_quantity" class="block text-gray-700 font-bold mb-2">Quantity:</label>
+        <input type="text" value="{{bill_item.quantity}}" name="quantity" id="item_quantity" class="w-full border p-2 rounded" placeholder="Quantity">
+      </div>
+
+      <div class="mb-4">
+        <label for="item_quantity_parc" class="block text-gray-700 font-bold mb-2">Quantity Parc:</label>
+        <input type="text" value="{{bill_item.quantity_parc}}" name="quantity_parc" id="item_quantity_parc" class="w-full border p-2 rounded" placeholder="Quantity Parc">
+      </div>
+
+      <div class="mb-4">
+        <label for="item_rate_parc" class="block text-gray-700 font-bold mb-2">Rate Parc:</label>
+        <input type="text" value="{{bill_item.rate_parc}}" name="rate_parc" id="item_rate_parc" class="w-full border p-2 rounded" placeholder="Rate Parc">
+      </div>
+
+      <div class="mb-4">
+        <label for="item_item" class="block text-gray-700 font-bold mb-2">Work Order Item:</label>
+        <select name="item" id="item_item" class="w-full border p-2 rounded">
+          <option value="">Select a Work Order Item</option>
+          {% for item in  wo_items %}
+
+            <option value="{{item.id}}" {% if bill_item %} selected {%endif%}>{{item.item_name}} - {{item.rate}}</option>
+
+          {% endfor %}
+        </select>
+      </div>
+<!--        Form ended-->
+        {% if bill_item %}
+        <button type="submit" hx-post="{% url 'update-bill-item' bill_item.id %}"
+            class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Submit
+        </button>
+        <button hx-get="{% url 'detail-bill-item' bill_item.id %}" type="button"
+            class="ml-2 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cancel
+        </button>
+        {% else %}
+        <button type="submit" hx-post="{% url 'create-bill-item' bill.id%}"
+            class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Submit
+        </button>
+        {% endif %}
+    </form>
+</div>

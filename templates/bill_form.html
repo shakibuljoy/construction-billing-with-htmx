@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <div class="flex justify-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Create a New Bill</h2>
+  </div>
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method='post'>
+      {% csrf_token %}
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="project">
+          Project
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="project"
+          name="project"
+          type="text"
+          placeholder="Project"
+        >
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
+          Category
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="category"
+          name="category"
+          type="text"
+          placeholder="Category"
+        >
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="vendor">
+          Vendor
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="vendor"
+          name="vendor"
+          type="text"
+          placeholder="Vendor"
+        >
+      </div>
+      <div class="mb-4">
+        {{form.wo}}
+      </div>
+      {%comment%}
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="wo">
+          Work Orders
+        </label>
+        <select id="wo" name="wo" multiple class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          {% for work_order in work_orders %}
+            <option value="{{ work_order }}">{{ work_order }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {%endcomment%}
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="ra">
+          R / A
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="ra"
+          name="ra"
+          type="number"
+          placeholder="RA"
+          value="0"
+        >
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Create Bill
+        </button>
+      </div>
+    </form>
+  </div>
+  {%endblock%}
