@@ -265,7 +265,7 @@ def search(request):
     project = request.GET.get('project')
     unique_projects = Bill.objects.values_list('project', flat=True).distinct()
     project_array = list(unique_projects)
-    print(project_array)
+    total_quantity = 0
     search_item =[]
     if query and s_type and project:
         if s_type == "Work Order":
@@ -276,15 +276,20 @@ def search(request):
             Q(wo__vendor__icontains=query)
             )
             search_item = Item.objects.filter(item__in=wo_item, bill__project=project)
+            for s in search_item:
+                total_quantity += s.quantity
         elif s_type == "Bill Location":
             search_item = Item.objects.filter(
             Q(location__icontains=query) |
             Q(quantity__icontains=query),
             bill__project=project
             )
+            for s in search_item:
+                total_quantity += s.quantity
     context = {
         'search_item': search_item,
-        'projects': project_array
+        'projects': project_array,
+        'total_quantity': total_quantity
     }
     return render(request, 'partials/search.html', context)
 
