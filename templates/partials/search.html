@@ -136,13 +136,13 @@
                     {{item.location}}
                 </td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{item.quantity}}
+                    {{item.quantity}} {{item.item.unit}}
                 </td>
               <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{item.amount}}
+                    Tk. {{item.amount}}
                 </td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <a href="{% url 'create-bill-item' item.bill.id %}">
+                    <a href="{% url 'create-bill-item' item.bill.id %}#{{item.id}}">
                         <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
                     </a>
                 </td>

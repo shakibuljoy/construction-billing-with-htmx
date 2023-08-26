@@ -45,5 +45,6 @@ class WorkOrderItemForm(forms.ModelForm):
             'item_no',
             'item_name',
             'rate',
+            'unit'
         )
 

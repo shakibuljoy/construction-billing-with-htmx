@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('search/', search, name="search"),
     # Billing Part
-    path('bill/', bill_list, name='bill-list'),
+    path('', bill_list, name='bill-list'),
     path('create-bill/', create_bill, name='create-bill'),
     path('bill_item_form/<pk>/', bill_item_form, name='bill-item-form'),
     path('create-bill-item/<pk>/', create_bill_item, name='create-bill-item'),

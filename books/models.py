@@ -58,14 +58,12 @@ class Bill(models.Model):
 class WorkOrderItem(models.Model):
     item_no = models.CharField(max_length=150)
     item_name = models.CharField(max_length=150)
+    unit = models.CharField(null=True, max_length=50)
     rate = models.FloatField(default=0)
     wo = models.ForeignKey(WorkOrder, on_delete=models.CASCADE)
 
-    def search_text(self):
-        return f"{self.item_no} {self.item_name} {self.rate} {self.wo.__str__()}"
-
     def __str__(self):
-        return self.item_name
+        return f"{self.item_no} {self.item_name} - {self.rate}/- per {self.unit}"
 
 
 class Item(models.Model):
