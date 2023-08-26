@@ -61,6 +61,9 @@ class WorkOrderItem(models.Model):
     rate = models.FloatField(default=0)
     wo = models.ForeignKey(WorkOrder, on_delete=models.CASCADE)
 
+    def search_text(self):
+        return f"{self.item_no} {self.item_name} {self.rate} {self.wo.__str__()}"
+
     def __str__(self):
         return self.item_name
 
@@ -73,8 +76,12 @@ class Item(models.Model):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
     item = models.ForeignKey(WorkOrderItem, on_delete=models.CASCADE)
 
+    def search_text(self):
+        return f"{self.location} {self.quantity} {self.bill.__str__()}"
+
     def amount(self):
         if self.item_id is not None:
             work_order = self.item  # Access the related WorkOrder instance
-            return work_order.rate * self.quantity * 0.01 * self.quantity_parc * 0.01 * self.rate_parc
+            total = work_order.rate * self.quantity * 0.01 * self.quantity_parc * 0.01 * self.rate_parc
+            return round(total, 2)
         return 0  # Handle the case where the item is not linked to a WorkOrder or the rate is not set

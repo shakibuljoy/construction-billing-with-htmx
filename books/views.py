@@ -2,6 +2,7 @@ from django.http.response import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import BillForm, WorkOrderForm, WorkOrderItemForm, ItemForm
 from .models import Bill, WorkOrder, WorkOrderItem, Item
+from django.db.models import Q
 
 
 def bill_list(request):
@@ -256,6 +257,36 @@ def detail_bill_item(request, pk):
         "bill_item": bill_item
     }
     return render(request, "partials/bill_item_detail.html", context)
+
+
+def search(request):
+    query = request.GET.get('query')
+    s_type = request.GET.get('type')
+    project = request.GET.get('project')
+    unique_projects = Bill.objects.values_list('project', flat=True).distinct()
+    project_array = list(unique_projects)
+    print(project_array)
+    search_item =[]
+    if query and s_type and project:
+        if s_type == "Work Order":
+            wo_item = WorkOrderItem.objects.filter(
+            Q(item_no__icontains=query) |
+            Q(item_name__icontains=query) |
+            Q(rate__icontains=query) |
+            Q(wo__vendor__icontains=query)
+            )
+            search_item = Item.objects.filter(item__in=wo_item, bill__project=project)
+        elif s_type == "Bill Location":
+            search_item = Item.objects.filter(
+            Q(location__icontains=query) |
+            Q(quantity__icontains=query),
+            bill__project=project
+            )
+    context = {
+        'search_item': search_item,
+        'projects': project_array
+    }
+    return render(request, 'partials/search.html', context)
 
 
 # def create_book_form(request):

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block content %}
+ <form method="get">
+<div class="flex items-center space-x-4">
+
+  <div class="relative">
+    <input
+      type="text"
+      name="query"
+      class="py-2 px-4 rounded-lg border focus:outline-none focus:ring focus:border-blue-300"
+      placeholder="Search..."
+    />
+    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+      <svg
+        class="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 11a4 4 0 11-8 0 4 4 0 018 0z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-4-4"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div class="relative">
+    <select
+      class="py-2 px-4 rounded-lg border focus:outline-none focus:ring focus:border-blue-300"
+      name="type"
+    >
+      <option>Work Order</option>
+      <option selected >Bill Location</option>
+    </select>
+    <div class="absolute right-2 top-1/2 transform -translate-y-1/2">
+      <svg
+        class="h-4 w-4 text-gray-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  <div class="relative">
+    <select
+      class="py-2 px-4 rounded-lg border focus:outline-none focus:ring focus:border-blue-300"
+      name="project"
+    >
+      {% for project in projects %}
+      <option>{{project}}</option>
+      {% endfor %}
+    </select>
+    <div class="absolute right-2 top-1/2 transform -translate-y-1/2">
+      <svg
+        class="h-4 w-4 text-gray-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
+</div>
+</form>
+  <hr class="w-full mt-2 h-1 bg-gray-600" >
+
+<!--Item List-->
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    R / A
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Project
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Vendor
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Location
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Quantity
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Amount
+                </th>
+              <th scope="col" class="px-6 py-3">
+                    View
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in search_item %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.bill.ordinal_number}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.bill.project}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.bill.vendor}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.location}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.quantity}}
+                </td>
+              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.amount}}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <a href="{% url 'create-bill-item' item.bill.id %}">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

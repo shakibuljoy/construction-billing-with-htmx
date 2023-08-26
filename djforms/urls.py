@@ -15,12 +15,14 @@ from books.views import (
     update_bill_item,
     bill_item_form,
     bill_list,
-    wo_list
+    wo_list,
+    search
 )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('search/', search, name="search"),
     # Billing Part
     path('bill/', bill_list, name='bill-list'),
     path('create-bill/', create_bill, name='create-bill'),
