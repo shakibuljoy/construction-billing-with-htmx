@@ -28,8 +28,8 @@
         <select name="item" id="item_item" class="w-full border p-2 rounded">
           <option value="">Select a Work Order Item</option>
           {% for item in  wo_items %}
-
-            <option value="{{item.id}}" {% if bill_item %} selected {%endif%}>{{item}}</option>
+          
+            <option value="{{item.id}}" {% if bill_item.item == item %} selected {%endif%}>{{item}}</option>
 
           {% endfor %}
         </select>
