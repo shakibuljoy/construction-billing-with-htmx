@@ -15,12 +15,12 @@
 
       <div class="mb-4">
         <label for="item_quantity_parc" class="block text-gray-700 font-bold mb-2">Quantity Percentage:</label>
-        <input type="text" value="{{bill_item.quantity_parc}}" name="quantity_parc" id="item_quantity_parc" class="w-full border p-2 rounded" placeholder="100%">
+        <input type="text" value="{{bill_item.quantity_parc}} {% if not bill_item %}100{%endif%}" name="quantity_parc" id="item_quantity_parc" class="w-full border p-2 rounded" placeholder="100%">
       </div>
 
       <div class="mb-4">
         <label for="item_rate_parc" class="block text-gray-700 font-bold mb-2">Rate Percentage:</label>
-        <input type="text" value="{{bill_item.rate_parc}}" name="rate_parc" id="item_rate_parc" class="w-full border p-2 rounded" placeholder="100%">
+        <input type="text" value="{{bill_item.rate_parc}} {% if not bill_item %}100{%endif%} " name="rate_parc" id="item_rate_parc" class="w-full border p-2 rounded" placeholder="100%">
       </div>
 
       <div class="mb-4">

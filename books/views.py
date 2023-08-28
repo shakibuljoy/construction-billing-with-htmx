@@ -277,7 +277,7 @@ def search(request):
             )
             search_item = Item.objects.filter(item__in=wo_item, bill__project=project)
             for s in search_item:
-                total_quantity += s.quantity
+                total_quantity += (s.quantity * s.quantity_parc * 0.01)
         elif s_type == "Bill Location":
             search_item = Item.objects.filter(
             Q(location__icontains=query) |
@@ -285,7 +285,7 @@ def search(request):
             bill__project=project
             )
             for s in search_item:
-                total_quantity += s.quantity
+                total_quantity += (s.quantity * s.quantity_parc * 0.01)
     context = {
         'search_item': search_item,
         'projects': project_array,
